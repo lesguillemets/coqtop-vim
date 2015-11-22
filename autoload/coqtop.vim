@@ -196,12 +196,12 @@ function! s:count_dots(lines, lineno)"{{{
       let l:lineno += 1
       continue
     endif
-    let l:pos = match(l:line, '\(\.\)\|\(^\s*\zs[\-+*]\ze\)')
+    let l:pos = match(l:line, '\([^.]\zs\.\ze\($\|[^.]\)\)\|\(^\s*\zs[\-+*]\ze\)')
     while l:pos != -1
       if synIDattr(synID(l:lineno, l:pos+1, 1), 'name') !~# 'Comment'
         let l:count += 1
       endif
-      let l:pos = match(l:line, '\(\.\)\|\(^\s*\zs[\-+*]\ze\)', l:pos+1)
+      let l:pos = match(l:line, '\([^.]\zs\.\ze\($\|[^.]\)\)\|\(^\s*\zs[\-+*]\ze\)', l:pos+1)
     endwhile
     let l:lineno += 1
   endfor
